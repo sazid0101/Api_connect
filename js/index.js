@@ -1,5 +1,5 @@
-const loadPhone= async()=>{
-    const response= await fetch('https://openapi.programming-hero.com/api/phones?search=iphone')
+const loadPhone= async(searchText)=>{
+    const response= await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
     const apiData= await response.json();
     const phones=apiData.data;
     // console.log(phones);
@@ -9,6 +9,9 @@ const displayPhones=phones=>{
     // console.log(phones)
     // step1:get the container element where i want to add the new element
 const phoneContainer=document.getElementById('phone-container')
+
+// clear page before search new item.
+    phoneContainer.textContent='';
 
     phones.forEach(phone=>{
         console.log(phone)
@@ -33,6 +36,9 @@ const phoneContainer=document.getElementById('phone-container')
 }
 
 const handleSearch= () =>{
-    console.log('handle')
+    const inputField=document.getElementById('input-field');
+    const searchText=inputField.value ;
+    console.log(searchText)
+    loadPhone(searchText)
 }
 loadPhone();
